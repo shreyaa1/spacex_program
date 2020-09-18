@@ -44,16 +44,17 @@ export const Mission = () => {
     }
 
     const SideBar = () => (
-        <div>
+        <article>
             <div className="filter-headline">Filters</div>
             <FilterYearData />
             <FilterLaunchData />
-        </div>
+        </article>
     )
 
     return (
 
         <div className="wrapper-grid">
+            <header>SpaceX Program</header>
             <SideBar />
             {missionData.length > 0 ? <div className="mission">{missionData.map((mission, index): any => {
                 // land success needs to be done
