@@ -71,6 +71,7 @@ export const Mission = () => {
                 </div >
             })} </div>
                 : <Icon />}
+            <footer>Developed by Shreya Shukla</footer>
         </div>
 
 
