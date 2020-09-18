@@ -29,6 +29,7 @@ input {
     background-color: limegreen;
     color: white;
 }
+.active,
 input:hover {
  background-color: forestgreen;
 }
