@@ -1,0 +1,26 @@
+.wrapper-grid {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    background-color: whitesmoke;
+}
+
+.mission {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr)
+}
+.card-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 12px;
+}
+img {
+    background: whitesmoke;
+    padding: 16px;
+}
+.year-name{  
+ display: grid;
+grid-template-columns: 1fr 1fr; 
+}
