@@ -1,15 +1,4 @@
-.wrapper-grid {
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    background-color: whitesmoke;
-    grid-gap: 24px;
-}
 
-.mission {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 24px;
-}
 .card-details {
     display: flex;
     flex-direction: column;
@@ -20,10 +9,6 @@
 img {
     background: whitesmoke;
     padding: 16px;
-}
-.year-name {  
- display: grid;
-grid-template-columns: 1fr 1fr;
 }
 input {
     text-align: center;
@@ -48,4 +33,46 @@ input {
 .filter-headline {
     text-align: center;
 font-size: 24px;
+}
+
+.year-name {  
+    display: grid;
+   grid-template-columns: 1fr 1fr;
+   }
+
+   
+@media only screen and (min-width: 1024px) {
+    .wrapper-grid { 
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        background-color: whitesmoke;
+        grid-gap: 24px;   
+    }
+    
+    .mission {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 24px;
+    }
+    }
+
+
+@media only screen and (min-width: 1140px) {
+.wrapper-grid { 
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    background-color: whitesmoke;
+    grid-gap: 24px;   
+}
+
+.mission {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 24px;
+}
+
+.year-name {  
+ display: grid;
+grid-template-columns: 1fr 1fr;
+}
 }
