@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mission } from "../src/components/Mission"
+import "./App.css";
 
 function App() {
   return (

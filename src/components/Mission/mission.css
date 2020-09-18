@@ -2,11 +2,13 @@
     display: grid;
     grid-template-columns: 1fr 4fr;
     background-color: whitesmoke;
+    grid-gap: 24px;
 }
 
 .mission {
     display: grid;
-    grid-template-columns: repeat(4, 1fr)
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 24px;
 }
 .card-details {
     display: flex;
@@ -14,13 +16,36 @@
     justify-content: center;
     align-items: center;
     background-color: white;
-    margin: 12px;
 }
 img {
     background: whitesmoke;
     padding: 16px;
 }
-.year-name{  
+.year-name {  
  display: grid;
-grid-template-columns: 1fr 1fr; 
+grid-template-columns: 1fr 1fr;
+}
+input {
+    text-align: center;
+    width: 50px;
+    border: 1px solid;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 4px;
+    margin: 8px auto;
+    cursor: pointer;
+    outline: none
+}
+.space {
+    margin-bottom: 4px;
+}
+.filter-heading {
+    text-align: center;
+    border-bottom: 1px solid gray;
+    padding-bottom: 16px;
+
+}
+.filter-headline {
+    text-align: center;
+font-size: 24px;
 }
