@@ -19,6 +19,12 @@ interface IMission {
         }
     }
 }
+
+const missionId = 'Mission IDs';
+const launchYear = 'Launch Year';
+const launchSuccess = 'Launch Success';
+const landSuccess = 'Land Success';
+
 export const Mission = () => {
 
     const [missionData, handleMissionData] = useState([])
@@ -35,12 +41,13 @@ export const Mission = () => {
         getSpaceData('').then(data => data);
     }, []);
 
-
-    const filterData = (e: any, type: string, index: number) => {
+    const filterData = (e: any, type: any, index: number) => {
         handleActive(index);
-        const getValue = `${type}${e.target.value}`
+        const getValue = `${type}${e.target.value}`;
         getSpaceData(getValue).then(data => data);
     }
+
+
 
 
 
@@ -94,16 +101,15 @@ export const Mission = () => {
                 return <div key={index} className="card-details">
                     <img className="image space" src={imageUrl} width="100" height="100" />
                     <div className="space" >{mission['mission_name']}  {mission['flight_number']}</div>
-                    <span className="space"  >Mission IDs: {mission['mission_id']}</span>
-                    <div className="space" >Launch Year: {mission['launch_year']}</div>
-                    <div className="space" >Launch Success: {isLaunchSuccess}</div>
-                    <div className="space" >Land Success: {isLandSuccess}</div>
+                    <span className="space"  >{missionId}: {mission['mission_id']}</span>
+                    <div className="space" >{launchYear}: {mission['launch_year']}</div>
+                    <div className="space" >{launchSuccess}: {isLaunchSuccess}</div>
+                    <div className="space" >{landSuccess}: {isLandSuccess}</div>
                 </div >
             })} </div>
                 : <Icon />}
             <footer>Developed by Shreya Shukla</footer>
         </div>
-
 
     )
 

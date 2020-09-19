@@ -1,6 +1,6 @@
 
 
-.header{
+header{
     padding: 20px 0;
     font-weight: bold;
 }
@@ -54,7 +54,7 @@ font-size: 24px;
    .wrapper-grid{
     padding: 12px;
    }
-.footer  {
+footer  {
     padding: 20px 0;
 }
 
