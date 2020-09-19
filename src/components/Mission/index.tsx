@@ -19,6 +19,11 @@ interface IMission {
         }
     }
 }
+interface IfilterOptions {
+    heading: string,
+    urlKey: string,
+    index: number
+}
 
 const missionId = 'Mission IDs';
 const launchYear = 'Launch Year';
@@ -41,7 +46,7 @@ export const Mission = () => {
         getSpaceData('').then(data => data);
     }, []);
 
-    const filterData = (e: any, type: any, index: number) => {
+    const filterData = (e: any, type: string, index: number) => {
         handleActive(index);
         const getValue = `${type}${e.target.value}`;
         getSpaceData(getValue).then(data => data);
@@ -51,7 +56,7 @@ export const Mission = () => {
 
 
 
-    const FilterLaunchData = ({ heading, urlKey, index }: any) => {
+    const FilterOptions = ({ heading, urlKey, index }: IfilterOptions) => {
         return <div onClick={() => HandlePanel(index)}>
             <h5 className="filter-heading">{heading}</h5>
             <div className="input-wrapper">
@@ -77,8 +82,8 @@ export const Mission = () => {
         <article>
             <div className="filter-headline">Filters</div>
             <FilterYearData />
-            <FilterLaunchData urlKey={'&launch_success='} index={1} heading='Successful Launch' />
-            <FilterLaunchData urlKey={`&land_success=`} index={2} heading='Successful Land' />
+            <FilterOptions urlKey={'&launch_success='} index={1} heading='Successful Launch' />
+            <FilterOptions urlKey={`&land_success=`} index={2} heading='Successful Land' />
         </article>
     )
 
@@ -92,7 +97,7 @@ export const Mission = () => {
 
                 const coresData = get(mission, ['rocket', 'first_stage', 'cores'], [])
 
-                const landSuccess = coresData.map((cores: { land_success: any; }) => cores.land_success);
+                const landSuccess = coresData.map((cores: { land_success: boolean; }) => cores.land_success);
 
                 const isLaunchSuccess = mission['launch_success'] === true ? 'True' : mission['launch_success'] === false ? 'False' : 'Not specified';
                 const isLandSuccess = landSuccess[0] === true ? 'True' : landSuccess[0] === false ? 'False' : 'not sure';
