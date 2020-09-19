@@ -13,11 +13,17 @@ interface IMission {
     links: {
         mission_patch: string
     }
+    rocket: {
+        first_stage: {
+            cores: any
+        }
+    }
 }
 export const Mission = () => {
 
     const [missionData, handleMissionData] = useState([])
     const [active, handleActive] = useState(-1);
+    const [activePanel, HandlePanel] = useState(-1);
 
     const getSpaceData = async (url: string) => {
         let response = await fetch(`https://api.spacexdata.com/v3/launches?limit=100&${url}`);
@@ -31,29 +37,30 @@ export const Mission = () => {
 
 
     const filterData = (e: any, type: string, index: number) => {
-        handleActive(index)
+        handleActive(index);
         const getValue = `${type}${e.target.value}`
         getSpaceData(getValue).then(data => data);
     }
 
 
 
-    const FilterLaunchData = () => {
-        return <>
-            <h5 className="filter-heading">Successful Launch</h5>
-            <div className="year-name">
-                <input onClick={e => filterData(e, "&launch_success=", -2)} value="true" className={active === -2 ? "active" : ""} />
-                <input onClick={e => filterData(e, "&launch_success=", -3)} value="false" className={active === -3 ? "active" : ""} />
+    const FilterLaunchData = ({ heading, urlKey, index }: any) => {
+        return <div onClick={() => HandlePanel(index)}>
+            <h5 className="filter-heading">{heading}</h5>
+            <div className="input-wrapper">
+                <input onClick={e => filterData(e, urlKey, -2)} value="true" className={active === -2 && activePanel === index ? "active" : ""} />
+                <input onClick={e => filterData(e, urlKey, -3)} value="false" className={active === -3 && activePanel === index ? "active" : ""} />
             </div>
-        </>
+        </div>
     }
+
 
     const FilterYearData = () => {
         const years = ["2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", '2019', '2020']
         return <>
             <h5 className="filter-heading" >Launch Year</h5>
-            <div className="year-name">{years.map((year: string, index: number) => (
-                <input key={index} onClick={e => filterData(e, "launch_year=", index)} value={year} className={active === index ? "active" : ""}  />
+            <div className="input-wrapper">{years.map((year: string, index: number) => (
+                <input key={index} onClick={e => filterData(e, "launch_year=", index)} value={year} className={active === index ? "active" : ""} />
 
             ))}</div>
         </>
@@ -63,7 +70,8 @@ export const Mission = () => {
         <article>
             <div className="filter-headline">Filters</div>
             <FilterYearData />
-            <FilterLaunchData />
+            <FilterLaunchData urlKey={'&launch_success='} index={1} heading='Successful Launch' />
+            <FilterLaunchData urlKey={`&land_success=`} index={2} heading='Successful Land' />
         </article>
     )
 
@@ -73,9 +81,14 @@ export const Mission = () => {
             <header>SpaceX Program</header>
             <SideBar />
             {missionData.length > 0 ? <div className="mission">{missionData.map((mission: IMission, index: number) => {
-                // land success needs to be done
-                const landSuccess = Object.values(mission).map((missionInfo: any) => missionInfo);
 
+
+                const coresData = get(mission, ['rocket', 'first_stage', 'cores'], [])
+
+                const landSuccess = coresData.map((cores: { land_success: any; }) => cores.land_success);
+
+                const isLaunchSuccess = mission['launch_success'] === true ? 'True' : mission['launch_success'] === false ? 'False' : 'Not specified';
+                const isLandSuccess = landSuccess[0] === true ? 'True' : landSuccess[0] === false ? 'False' : 'not sure';
                 const imageUrl = get(mission, ['links', 'mission_patch'], "")
 
                 return <div key={index} className="card-details">
@@ -83,7 +96,8 @@ export const Mission = () => {
                     <div className="space" >{mission['mission_name']}  {mission['flight_number']}</div>
                     <span className="space"  >Mission IDs: {mission['mission_id']}</span>
                     <div className="space" >Launch Year: {mission['launch_year']}</div>
-                    <div className="space" >Launch Success: {mission['launch_success'] === true ? 'True' : 'False'}</div>
+                    <div className="space" >Launch Success: {isLaunchSuccess}</div>
+                    <div className="space" >Land Success: {isLandSuccess}</div>
                 </div >
             })} </div>
                 : <Icon />}
